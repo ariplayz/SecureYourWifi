@@ -39,9 +39,9 @@
             // 
             // serviceInstaller1
             // 
-            this.serviceInstaller1.Description = "Mobility Print Printer Manager";
-            this.serviceInstaller1.DisplayName = "Printer Manager";
-            this.serviceInstaller1.ServiceName = "2059095709870923549587";
+            this.serviceInstaller1.Description = "Enforces secure wifi for extra security on networks.";
+            this.serviceInstaller1.DisplayName = "Secure Your Wifi!";
+            this.serviceInstaller1.ServiceName = "SecureYourWifi";
             // 
             // ProjectInstaller
             // 

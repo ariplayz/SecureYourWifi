@@ -116,6 +116,36 @@ namespace SecureYourWifi
 
         protected override void OnStop()
         {
+            string overrideValue = Environment.GetEnvironmentVariable("SECURE_OVERRIDE");
+            
+            if (overrideValue != "true")
+            {
+                WriteToFile("Service stop attempt blocked at " + DateTime.Now + ". Set SECURE_OVERRIDE environment variable to 'true' to stop the service.");
+                timer.Enabled = false;
+                
+                // Restart the service in a background thread
+                System.Threading.Thread restartThread = new System.Threading.Thread(() =>
+                {
+                    System.Threading.Thread.Sleep(500);
+                    try
+                    {
+                        ServiceController sc = new ServiceController(this.ServiceName);
+                        if (sc.Status == ServiceControllerStatus.Stopped || sc.Status == ServiceControllerStatus.StopPending)
+                        {
+                            sc.Start();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteToFile("Error auto-restarting service: " + ex.Message);
+                    }
+                });
+                restartThread.IsBackground = true;
+                restartThread.Start();
+                
+                return;
+            }
+            
             WriteToFile("Service is stopped at " + DateTime.Now);
             timer.Enabled = false;
         }
