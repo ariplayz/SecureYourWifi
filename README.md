@@ -1,4 +1,4 @@
-###TURN OFF:
+#TURN OFF:
 How to Stop the Service:
 To stop the service, users must:
 1.	Open Command Prompt as Administrator
